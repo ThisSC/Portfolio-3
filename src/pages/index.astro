@@ -1,0 +1,303 @@
+---
+import Layout      from '../layouts/Layout.astro';
+import Nav         from '../components/Nav.astro';
+import Hero        from '../components/Hero.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+
+const projects = [
+  {
+    title:       'Frame & Wave',
+    description: 'Estudio de doblaje profesional. Sitio corporativo con diseño visual atractivo, SEO optimizado y enfoque en conversión.',
+    url:         'https://frameandwave.com/',
+    tag:         'WordPress',
+    tech:        ['WordPress', 'Elementor', 'SEO', 'UX'],
+    icon:        'ti-camera',
+    featured:    true,
+    screenshot:  '/images/FrameWaves.png',
+  },
+  {
+    title:       'iSmart Móviles',
+    description: 'Tienda e-commerce de dispositivos móviles en Benidorm. WooCommerce, catálogo de productos y SEO local.',
+    url:         'https://ismartmoviles.es/',
+    tag:         'E-commerce',
+    tech:        ['WooCommerce', 'PHP', 'MySQL', 'SEO'],
+    icon:        'ti-device-mobile',
+    featured:    false,
+    screenshot:  '/images/IsmartMovile.png',
+  },
+  {
+    title:       'María Torró Podología',
+    description: 'Sitio web para clínica de podología en Villana, Alicante. Agenda online, servicios y blog integrado.',
+    url:         'https://mariatorropodologia.es/',
+    tag:         'WordPress',
+    tech:        ['WordPress', 'PHP', 'Agenda Online', 'Blog'],
+    icon:        'ti-heart',
+    featured:    false,
+    screenshot:  '/images/MariaPodologia.png',
+  },
+];
+
+const skills = [
+  { category: 'Frontend',   icon: 'ti-layout',          items: ['HTML5 & CSS3', 'JavaScript', 'React'] },
+  { category: 'Backend',    icon: 'ti-server',           items: ['PHP', 'Node.js', 'MySQL & APIs'] },
+  { category: 'WordPress',  icon: 'ti-brand-wordpress',  items: ['WooCommerce', 'Plugins custom', 'SEO & Performance'] },
+];
+
+const services = [
+  {
+    icon:  'ti-layout',
+    title: 'Diseño Web',
+    items: ['Diseño Responsivo', 'UI / UX', 'Landing Pages', 'Identidad Visual'],
+  },
+  {
+    icon:  'ti-code',
+    title: 'Desarrollo Web',
+    items: ['Sitios WordPress', 'Aplicaciones React', 'Integraciones API', 'E-commerce'],
+  },
+  {
+    icon:  'ti-trending-up',
+    title: 'Optimización',
+    items: ['SEO Técnico', 'Performance Web', 'WooCommerce', 'Plugins Custom'],
+  },
+];
+
+const techs = [
+  { name: 'HTML5',      logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg' },
+  { name: 'CSS3',       logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg' },
+  { name: 'JavaScript', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg' },
+  { name: 'React',      logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg' },
+  { name: 'Node.js',    logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg' },
+  { name: 'PHP',        logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg' },
+  { name: 'MySQL',      logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg' },
+  { name: 'WordPress',  logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/wordpress/wordpress-plain.svg' },
+  { name: 'Git',        logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg' },
+  { name: 'GitHub',     logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg' },
+];
+---
+
+<Layout>
+  <Nav />
+  <Hero />
+
+  <!-- SOBRE MÍ -->
+  <hr class="divider" />
+  <section id="sobre" class="section">
+    <div class="container">
+      <p class="eyebrow" data-fade>Sobre mí</p>
+      <h2 class="section-title" data-fade>Quién soy</h2>
+      <div class="about-grid">
+        <div class="about-body" data-fade>
+          <p>Soy un desarrollador apasionado con un enfoque <strong>creativo y técnico</strong> en la construcción de soluciones digitales. Me especializo en crear sitios web <strong>rápidos, optimizados y fáciles de usar</strong>, asegurando una experiencia fluida tanto para usuarios como para clientes.</p>
+          <p>Mi objetivo es integrar tecnologías modernas y mejores prácticas para entregar <strong>resultados medibles</strong>. Ya sea mejorar tu presencia online, crear un sitio desde cero o lanzar una tienda e-commerce — convierto ideas en soluciones reales.</p>
+        </div>
+        <aside class="about-aside" data-fade>
+          <div class="aside-item"><i class="ti ti-map-pin"></i><span>Maracaibo, Venezuela</span></div>
+          <div class="aside-item"><i class="ti ti-school"></i><span>UPTM — Ing. en Informática</span></div>
+          <div class="aside-item"><i class="ti ti-brand-github"></i><a href="https://github.com/ThisSC" target="_blank" rel="noopener">github.com/ThisSC</a></div>
+          <div class="aside-item"><i class="ti ti-brand-linkedin"></i><a href="https://www.linkedin.com/in/samuelcastrodev/" target="_blank" rel="noopener">linkedin.com/in/samuelcastrodev</a></div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICIOS -->
+  <hr class="divider" />
+  <section id="servicios" class="section">
+    <div class="container">
+      <p class="eyebrow" data-fade>Lo que ofrezco</p>
+      <h2 class="section-title" data-fade>Servicios</h2>
+      <div class="services-grid">
+        {services.map(s => (
+          <div class="service-card" data-fade>
+            <div class="service-icon"><i class={`ti ${s.icon}`} aria-hidden="true"></i></div>
+            <h3 class="service-title">{s.title}</h3>
+            <ul class="service-list">
+              {s.items.map(item => <li>{item}</li>)}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- HABILIDADES -->
+  <hr class="divider" />
+  <section id="habilidades" class="section">
+    <div class="container">
+      <p class="eyebrow" data-fade>Stack técnico</p>
+      <h2 class="section-title" data-fade>Habilidades</h2>
+      <div class="tech-grid">
+        {techs.map(t => (
+          <div class="tech-item" data-fade>
+            <img src={t.logo} alt={t.name} width="36" height="36" loading="lazy" />
+            <span class="tech-name">{t.name}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- EDUCACIÓN -->
+  <hr class="divider" />
+  <section id="educacion" class="section">
+    <div class="container">
+      <p class="eyebrow" data-fade>Formación</p>
+      <h2 class="section-title" data-fade>Educación</h2>
+      <div class="edu-list">
+        <div class="edu-item" data-fade>
+          <div class="edu-icon"><i class="ti ti-school" aria-hidden="true"></i></div>
+          <div class="edu-body">
+            <div class="edu-period">2025 — Presente</div>
+            <h3 class="edu-degree">Ingeniería en Informática</h3>
+            <div class="edu-school">Universidad Politécnica Territorial de Maracaibo (UPTM)</div>
+            <p class="edu-desc">Formación en desarrollo de software, arquitectura de sistemas, bases de datos, redes y fundamentos de ingeniería informática.</p>
+          </div>
+        </div>
+        <div class="edu-item" data-fade>
+          <div class="edu-icon"><i class="ti ti-certificate" aria-hidden="true"></i></div>
+          <div class="edu-body">
+            <div class="edu-period">2025 — Presente</div>
+            <h3 class="edu-degree">Aprendizaje continuo</h3>
+            <div class="edu-school">Plataformas online</div>
+            <p class="edu-desc">Cursos en React, WordPress y Node.js a través de Udemy, YouTube y documentación oficial.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROYECTOS -->
+  <hr class="divider" />
+  <section id="proyectos" class="section">
+    <div class="container">
+      <p class="eyebrow" data-fade>Trabajo reciente</p>
+      <h2 class="section-title" data-fade>Proyectos</h2>
+      <div class="projects-grid">
+        {projects.map(p => (
+          <div data-fade>
+            <ProjectCard {...p} />
+          </div>
+        ))}
+      </div>
+      <div class="github-cta" data-fade>
+        <i class="ti ti-brand-github" aria-hidden="true"></i>
+        <span>Más proyectos en</span>
+        <a href="https://github.com/ThisSC" target="_blank" rel="noopener">github.com/ThisSC</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACTO -->
+  <hr class="divider" />
+  <section id="contacto" class="section">
+    <div class="container contact-wrap">
+      <div class="contact-left" data-fade>
+        <p class="eyebrow">Trabajemos juntos</p>
+        <h2 class="section-title" style="margin-bottom:1rem">¿Tienes un<br>proyecto en mente?</h2>
+        <p class="contact-sub">Estoy disponible para proyectos freelance, colaboraciones y nuevas oportunidades. Cuéntame tu idea.</p>
+        <div class="contact-btns">
+          <a class="contact-btn" href="https://www.linkedin.com/in/samuelcastrodev/" target="_blank" rel="noopener">
+            <i class="ti ti-brand-linkedin" aria-hidden="true"></i>LinkedIn
+          </a>
+          <a class="contact-btn" href="https://github.com/ThisSC" target="_blank" rel="noopener">
+            <i class="ti ti-brand-github" aria-hidden="true"></i>GitHub
+          </a>
+        </div>
+      </div>
+      <div class="contact-card" data-fade>
+        <div class="cc-row"><i class="ti ti-map-pin"></i><span>Maracaibo, Venezuela</span></div>
+        <div class="cc-row"><i class="ti ti-clock"></i><span>UTC-4 (VET)</span></div>
+        <div class="cc-row"><i class="ti ti-school"></i><span>Estudiante — UPTM</span></div>
+        <div class="cc-row"><i class="ti ti-circle-check"></i><span class="available">Disponible ahora</span></div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+  <footer>
+    <div class="container footer-inner">
+      <span>© 2026 Samuel Castro. All rights reserved.</span>
+      <span>Built with Astro &amp; ☕</span>
+    </div>
+  </footer>
+</Layout>
+
+<style>
+.section { padding: 5rem 0; }
+
+/* About */
+.about-grid { display: grid; grid-template-columns: 1fr 270px; gap: 3rem; align-items: start; }
+.about-body { display: flex; flex-direction: column; gap: 1rem; font-size: 15px; color: var(--muted); line-height: 1.85; font-weight: 300; }
+.about-body strong { color: var(--text2); font-weight: 500; }
+.about-aside { display: flex; flex-direction: column; gap: 8px; }
+.aside-item { display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--muted); background: var(--bg2); border: 0.5px solid var(--border); border-radius: 8px; padding: 10px 14px; }
+.aside-item i { color: var(--purple); font-size: 15px; flex-shrink: 0; }
+.aside-item a { color: var(--muted); text-decoration: none; transition: color 0.15s; }
+.aside-item a:hover { color: var(--purple); }
+
+/* Services */
+.services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.service-card { background: var(--bg2); border: 0.5px solid var(--border2); border-radius: 12px; padding: 1.5rem; display: flex; flex-direction: column; gap: 0.85rem; transition: border-color 0.2s, transform 0.2s; }
+.service-card:hover { border-color: var(--purple-dim); transform: translateY(-2px); }
+.service-icon { width: 40px; height: 40px; border-radius: 9px; background: var(--purple-bg); border: 0.5px solid var(--purple-dim); display: flex; align-items: center; justify-content: center; }
+.service-icon i { font-size: 20px; color: var(--purple); }
+.service-title { font-size: 14px; font-weight: 600; color: var(--text); }
+.service-list { list-style: none; display: flex; flex-direction: column; gap: 5px; }
+.service-list li { font-size: 12px; color: var(--muted); display: flex; align-items: center; gap: 6px; }
+.service-list li::before { content: '▹'; color: var(--purple); font-size: 10px; flex-shrink: 0; }
+
+/* Skills / Tech grid */
+.tech-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
+.tech-item { background: var(--bg2); border: 0.5px solid var(--border2); border-radius: 10px; padding: 1rem 0.75rem; display: flex; flex-direction: column; align-items: center; gap: 8px; transition: border-color 0.2s, transform 0.2s; }
+.tech-item:hover { border-color: var(--purple-dim); transform: translateY(-2px); }
+.tech-item img { width: 36px; height: 36px; object-fit: contain; }
+.tech-name { font-size: 11px; color: var(--text2); text-align: center; letter-spacing: 0.02em; }
+
+/* Education */
+.edu-list { display: flex; flex-direction: column; gap: 1px; background: var(--border); border-radius: 14px; overflow: hidden; }
+.edu-item { display: flex; gap: 1.5rem; align-items: flex-start; padding: 1.75rem 2rem; background: var(--bg2); transition: background 0.15s; }
+.edu-item:hover { background: var(--bg3); }
+.edu-icon { width: 42px; height: 42px; border-radius: 10px; background: var(--purple-bg); border: 0.5px solid var(--purple-dim); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.edu-icon i { color: var(--purple); font-size: 20px; }
+.edu-period { font-size: 11px; color: var(--muted); letter-spacing: 0.06em; margin-bottom: 4px; }
+.edu-degree { font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 2px; }
+.edu-school { font-size: 12px; color: var(--purple); margin-bottom: 8px; }
+.edu-desc { font-size: 13px; color: var(--muted); line-height: 1.65; }
+
+/* Projects */
+.projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 1.5rem; }
+.github-cta { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--muted); padding: 0.85rem 1.1rem; background: var(--bg2); border: 0.5px solid var(--border); border-radius: 8px; width: fit-content; }
+.github-cta i { font-size: 16px; color: var(--purple); }
+.github-cta a { color: var(--purple); text-decoration: none; }
+.github-cta a:hover { text-decoration: underline; }
+
+/* Contact */
+.contact-wrap { display: grid; grid-template-columns: 1fr 300px; gap: 3rem; align-items: center; }
+.contact-sub { font-size: 14px; color: var(--muted); line-height: 1.8; max-width: 380px; margin-bottom: 1.75rem; }
+.contact-btns { display: flex; gap: 10px; flex-wrap: wrap; }
+.contact-btn { display: inline-flex; align-items: center; gap: 7px; font-size: 13px; color: var(--muted); text-decoration: none; border: 0.5px solid var(--border2); padding: 9px 18px; border-radius: 7px; background: var(--bg2); transition: all 0.15s; }
+.contact-btn i { font-size: 16px; color: var(--purple); }
+.contact-btn:hover { color: var(--text); border-color: var(--purple-dim); background: var(--purple-bg); }
+.contact-card { background: var(--bg2); border: 0.5px solid var(--border2); border-radius: 12px; padding: 1.5rem; display: flex; flex-direction: column; gap: 14px; }
+.cc-row { display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--muted); }
+.cc-row i { font-size: 16px; color: var(--purple); }
+.available { color: var(--green); }
+
+/* Footer */
+footer { padding: 2rem 0; }
+.footer-inner { display: flex; justify-content: space-between; align-items: center; font-size: 11px; color: var(--muted2); }
+
+/* Responsive */
+@media (max-width: 860px) {
+  .about-grid    { grid-template-columns: 1fr; }
+  .contact-wrap  { grid-template-columns: 1fr; }
+  .contact-card  { display: none; }
+}
+@media (max-width: 700px) {
+  .projects-grid  { grid-template-columns: 1fr; }
+  .services-grid  { grid-template-columns: 1fr; }
+  .tech-grid      { grid-template-columns: repeat(3, 1fr); }
+  .section        { padding: 3rem 0; }
+  .edu-item       { padding: 1.25rem; gap: 1rem; }
+}
+</style>

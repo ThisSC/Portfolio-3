@@ -1,0 +1,98 @@
+---
+const links = [
+  { href: '#sobre',       label: 'Sobre mí'    },
+  { href: '#servicios',   label: 'Servicios'   },
+  { href: '#habilidades', label: 'Habilidades' },
+  { href: '#educacion',   label: 'Educación'   },
+  { href: '#proyectos',   label: 'Proyectos'   },
+];
+---
+
+<header class="nav-wrapper">
+  <nav class="container nav-inner">
+    <a href="/" class="nav-logo" aria-label="Samuel Castro - Inicio">
+      <div class="logo-circle">
+        <span class="logo-initials">SC</span>
+      </div>
+    </a>
+
+    <div class="nav-links">
+      {links.map(l => <a href={l.href}>{l.label}</a>)}
+      <a href="#contacto" class="nav-cta">Contacto</a>
+    </div>
+
+    <button class="nav-burger" id="burger" aria-label="Abrir menú">
+      <i class="ti ti-menu-2"></i>
+    </button>
+  </nav>
+
+  <div class="mobile-menu" id="mobile-menu">
+    {links.map(l => <a href={l.href} class="mobile-link">{l.label}</a>)}
+    <a href="#contacto" class="mobile-link mobile-cta">Contacto</a>
+  </div>
+</header>
+
+<style>
+.nav-wrapper {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(8, 8, 8, 0.93);
+  backdrop-filter: blur(18px);
+  border-bottom: 0.5px solid var(--border);
+}
+.nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 60px;
+}
+.nav-logo { display: flex; align-items: center; text-decoration: none; }
+.logo-circle {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  border: 1.5px solid var(--purple-dim);
+  background: var(--purple-bg);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.logo-initials {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--purple);
+  letter-spacing: -0.04em;
+  line-height: 1;
+  user-select: none;
+}
+
+.nav-links { display: flex; align-items: center; gap: 2px; }
+.nav-links a {
+  font-size: 12px; color: var(--muted); text-decoration: none;
+  padding: 6px 14px; border-radius: 6px; transition: all 0.15s; letter-spacing: 0.02em;
+}
+.nav-links a:hover { color: var(--text); background: var(--bg3); }
+.nav-cta { background: var(--purple) !important; color: #fff !important; font-weight: 500; margin-left: 6px; }
+.nav-cta:hover { background: var(--purple-hover) !important; }
+
+.nav-burger { display: none; background: none; border: 0.5px solid var(--border2); color: var(--text); font-size: 20px; cursor: pointer; padding: 6px 8px; border-radius: 6px; line-height: 1; }
+
+.mobile-menu { display: none; flex-direction: column; padding: 1rem 1.5rem 1.5rem; border-top: 0.5px solid var(--border); gap: 4px; }
+.mobile-menu.open { display: flex; }
+.mobile-link { font-size: 14px; color: var(--muted); text-decoration: none; padding: 10px 12px; border-radius: 6px; transition: all 0.15s; }
+.mobile-link:hover { color: var(--text); background: var(--bg3); }
+.mobile-cta { background: var(--purple); color: #fff !important; text-align: center; margin-top: 6px; font-weight: 500; }
+
+@media (max-width: 680px) {
+  .nav-links  { display: none; }
+  .nav-burger { display: block; }
+}
+</style>
+
+<script>
+  const burger = document.getElementById('burger')!;
+  const menu   = document.getElementById('mobile-menu')!;
+  burger.addEventListener('click', () => menu.classList.toggle('open'));
+  menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => menu.classList.remove('open')));
+</script>

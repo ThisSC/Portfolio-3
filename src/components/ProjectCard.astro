@@ -1,0 +1,264 @@
+---
+interface Props {
+  title:       string;
+  description: string;
+  url:         string;
+  tag:         string;
+  tech:        string[];
+  icon:        string;
+  featured?:   boolean;
+  screenshot?: string; // optional real screenshot path, e.g. /images/frame-wave.png
+}
+
+const {
+  title, description, url, tag, tech, icon,
+  featured = false,
+  screenshot,
+} = Astro.props;
+
+const host = new URL(url).hostname;
+---
+
+<a
+  class:list={['proj-card', { featured }]}
+  href={url}
+  target="_blank"
+  rel="noopener noreferrer"
+  aria-label={`Ver proyecto ${title}`}
+>
+  <!-- ── Preview ───────────────────────────── -->
+  <div class="proj-preview">
+
+    {screenshot ? (
+      <img
+        src={screenshot}
+        alt={`Preview de ${title}`}
+        class="proj-screenshot"
+        loading="lazy"
+      />
+    ) : (
+      <div class="browser-mockup">
+        <div class="browser-bar">
+          <span class="dot r"></span>
+          <span class="dot y"></span>
+          <span class="dot g"></span>
+          <div class="browser-url">{host}</div>
+        </div>
+        <div class="browser-body">
+          <i class={`ti ${icon} browser-icon`} aria-hidden="true"></i>
+          <span class="browser-site-name">{title}</span>
+        </div>
+      </div>
+    )}
+
+    {featured && <div class="badge-featured">Destacado</div>}
+
+    <div class="preview-overlay">
+      <span class="overlay-btn">
+        <i class="ti ti-external-link" aria-hidden="true"></i>
+        Visitar sitio
+      </span>
+    </div>
+  </div>
+
+  <!-- ── Info ─────────────────────────────── -->
+  <div class="proj-info">
+    <div class="proj-header">
+      <span class="proj-tag-label">{tag}</span>
+      <i class="ti ti-arrow-up-right proj-arrow" aria-hidden="true"></i>
+    </div>
+    <h3 class="proj-name">{title}</h3>
+    <p class="proj-desc">{description}</p>
+    <div class="proj-chips">
+      {tech.map(t => <span class="tech-chip">{t}</span>)}
+    </div>
+  </div>
+</a>
+
+<style>
+/* ── Card shell ─────────────────────── */
+.proj-card {
+  background: var(--bg2);
+  border: 0.5px solid var(--border2);
+  border-radius: 14px;
+  overflow: hidden;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+}
+.proj-card:hover {
+  border-color: var(--purple-dim);
+  transform: translateY(-5px);
+  box-shadow: 0 16px 48px rgba(107, 70, 193, 0.12);
+}
+.proj-card.featured {
+  border-color: var(--purple-dim);
+}
+
+/* ── Preview area ───────────────────── */
+.proj-preview {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: #0b0b0d;
+  border-bottom: 0.5px solid var(--border);
+  flex-shrink: 0;
+}
+
+/* Real screenshot */
+.proj-screenshot {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+  transition: transform 0.45s ease;
+}
+.proj-card:hover .proj-screenshot { transform: scale(1.04); }
+
+/* Browser mockup */
+.browser-mockup {
+  width: 100%; height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.browser-bar {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 8px 12px;
+  background: #0d0d0f;
+  border-bottom: 0.5px solid #1a1a1a;
+  flex-shrink: 0;
+}
+.dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+}
+.dot.r { background: #3a1a1a; }
+.dot.y { background: #2e2a10; }
+.dot.g { background: #0f2e14; }
+.browser-url {
+  font-size: 9px;
+  color: #333;
+  background: #111;
+  border: 0.5px solid #1c1c1c;
+  border-radius: 4px;
+  padding: 2px 10px;
+  margin-left: 6px;
+  flex: 1;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.browser-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: radial-gradient(ellipse at 50% 40%, #1a1428 0%, #0b0b0d 70%);
+}
+.browser-icon {
+  font-size: 34px;
+  color: var(--purple-dim);
+  opacity: 0.7;
+}
+.browser-site-name {
+  font-size: 11px;
+  color: #2a2a2a;
+  letter-spacing: 0.06em;
+}
+
+/* Hover overlay */
+.preview-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(8, 6, 18, 0.78);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.22s;
+  backdrop-filter: blur(2px);
+}
+.proj-card:hover .preview-overlay { opacity: 1; }
+.overlay-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #fff;
+  background: var(--purple);
+  padding: 9px 22px;
+  border-radius: 7px;
+  letter-spacing: 0.02em;
+}
+.overlay-btn i { font-size: 15px; }
+
+/* Featured badge */
+.badge-featured {
+  position: absolute;
+  top: 10px; left: 10px;
+  font-size: 10px;
+  background: var(--purple-bg);
+  color: var(--purple);
+  border: 0.5px solid var(--purple-dim);
+  padding: 3px 10px;
+  border-radius: 20px;
+  letter-spacing: 0.06em;
+  z-index: 2;
+}
+
+/* ── Info area ──────────────────────── */
+.proj-info {
+  padding: 1.25rem 1.5rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+.proj-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.proj-tag-label {
+  font-size: 10px;
+  background: var(--bg3);
+  color: var(--text2);
+  border: 0.5px solid var(--border2);
+  padding: 2px 9px;
+  border-radius: 4px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.proj-arrow {
+  font-size: 18px;
+  color: var(--muted);
+  transition: color 0.15s, transform 0.15s;
+}
+.proj-card:hover .proj-arrow {
+  color: var(--purple);
+  transform: translate(2px, -2px);
+}
+.proj-name {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+  letter-spacing: -0.01em;
+}
+.proj-desc {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.7;
+}
+.proj-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 2px;
+}
+</style>
